@@ -1,0 +1,8 @@
+<div class="prop">
+  <div class="prop-title">{{ title }}</div>
+  @if (money!=undefined) {
+  <div class="prop-content">{{ content | currency : symbol }}</div>
+  }@else {
+  <div class="prop-content">{{ content }}</div>
+  }
+</div>

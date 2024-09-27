@@ -1,0 +1,102 @@
+<div class="page">
+  <div class="component">
+    <h1 class="text-center">
+      {{ storeConfig().store_name | uppercase }}- REQUESTS
+    </h1>
+  </div>
+  <form [formGroup]="item_form" (ngSubmit)="addItem()">
+    <div class="component flex flex-center">
+      <div class="control">
+        <select
+          class="input-primary"
+          name="store"
+          id="store"
+          formControlName="store"
+        >
+          <option value="" selected disabled>select store</option>
+          @for (item of stores; track $index) {
+          @if(item._id!=storeConfig().store_id){
+          <option [value]="item.name">{{ item.name }}</option>
+          } }
+        </select>
+      </div>
+      <div class="control">
+        <input
+          list="inventories"
+          id="product"
+          name="product"
+          placeholder="e.g dangote cement"
+          autocomplete="off"
+          formControlName="product"
+          class="input-primary"
+          (change)="getUnits()"
+        />
+        <datalist id="inventories">
+          @for (item of inventories; track $index) {
+          <option [value]="productName(item.product)">
+            {{ productName(item.product) }}
+          </option>
+          }
+        </datalist>
+      </div>
+      <div class="control">
+        <select
+          class="input-primary"
+          name="unit"
+          id="unit"
+          formControlName="unit"
+        >
+          <option value="" selected disabled>select unit</option>
+          @for (item of units; track $index) {
+          <option [value]="item.name">{{ item.name }}</option>
+          }
+        </select>
+      </div>
+      <div class="control">
+        <input
+          type="number"
+          name="quantity"
+          id="quantity"
+          formControlName="quantity"
+          class="input-primary"
+        />
+      </div>
+      <div class="control">
+        <button class="btn-primary--round" [disabled]="item_form.invalid">
+          <fa-icon [icon]="plusIcon"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </form>
+  @if(items.length>0){
+  <div class="component flex-center">
+    <request-form-items
+      [items]="items"
+      (onRemove)="remove($event)"
+    ></request-form-items>
+  </div>
+  <div class="component flex flex-center">
+    <span class="important">items {{ items.length }}</span
+    ><button
+      class="btn-primary"
+      (click)="createRequest()"
+      [disabled]="items.length == 0"
+    >
+      CREATE REQUEST
+    </button>
+  </div>
+
+  }@else {
+  <div class="component flex flex-center notification">
+    no items in a request. start by adding items
+  </div>
+
+  }
+
+  <request-allert
+    [loading]="allert.loading"
+    [status]="allert.status"
+    [message]="allert.message"
+    (onSubmit)="handleAllert($event)"
+  ></request-allert>
+</div>

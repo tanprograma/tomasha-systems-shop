@@ -1,0 +1,49 @@
+<div class="page">
+  <div class="component">
+    <h1 class="text-center">CREATE CATEGORIES</h1>
+  </div>
+  <form
+    class="component flex flex-center"
+    [formGroup]="category_form"
+    (ngSubmit)="createCategory()"
+  >
+    <div class="control">
+      <label for="category">category</label>
+      <input
+        class="input-primary"
+        type="text"
+        name="category"
+        id="category"
+        autocomplete="off"
+        formControlName="category"
+      />
+    </div>
+    <button
+      type="submit"
+      class="btn-primary--round"
+      [disabled]="category_form.invalid"
+    >
+      <fa-icon [icon]="plusIcon"></fa-icon>
+    </button>
+  </form>
+  <div class="component flex flex-center">
+    <table>
+      <thead>
+        <tr>
+          <th>sn</th>
+          <th>category</th>
+          <th>id</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of categories; track $index) {
+        <tr>
+          <td>{{ $index + 1 }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item._id }}</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

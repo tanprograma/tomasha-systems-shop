@@ -1,0 +1,17 @@
+.page {
+  display: flex;
+}
+.menu {
+  flex: 0 1 20%;
+}
+.menu-container {
+  height: 100%;
+  overflow-y: scroll;
+}
+// .menu-container::-webkit-scrollbar {
+//   // display: none;
+//   background-color: lightgreen;
+// }
+.main-content {
+  flex: 0 1 80%;
+}

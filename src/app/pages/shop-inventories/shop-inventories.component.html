@@ -1,0 +1,11 @@
+<div class="page">
+  <div class="component">
+    <h1 class="text-center">
+      {{ storeConfig().store_name | uppercase }} INVENTORIES
+    </h1>
+  </div>
+  <inventory-list
+    [inventories]="displayed_inventories"
+    (onFilter)="filterInventories($event)"
+  ></inventory-list>
+</div>

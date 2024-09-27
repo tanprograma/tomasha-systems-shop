@@ -1,0 +1,115 @@
+<div class="page">
+  <div class="component">
+    <h2 class="text-center">sales form</h2>
+  </div>
+  <form [formGroup]="item_form" (ngSubmit)="addItem()">
+    <div class="component flex flex-center">
+      <div class="control">
+        <input
+          type="date"
+          name="date"
+          id="date"
+          formControlName="date"
+          class="input-primary"
+        />
+      </div>
+      <div class="control">
+        <input
+          list="inventories"
+          id="product"
+          name="product"
+          placeholder="e.g dangote cement"
+          autocomplete="off"
+          formControlName="product"
+          class="input-primary"
+          (change)="getUnits()"
+        />
+        <datalist id="inventories">
+          @for (item of inventories; track $index) {
+          <option [value]="parseProductName(item.product)">
+            {{ parseProductName(item.product) }}
+          </option>
+          }
+        </datalist>
+      </div>
+      <div class="control">
+        <select
+          class="input-primary"
+          name="unit"
+          id="unit"
+          formControlName="unit"
+        >
+          <option value="" selected disabled>select unit</option>
+          @for (item of units; track $index) {
+          <option [value]="item.name">{{ item.name }}</option>
+          }
+        </select>
+      </div>
+      <div class="control">
+        <input
+          type="number"
+          name="quantity"
+          id="quantity"
+          formControlName="quantity"
+          class="input-primary"
+        />
+      </div>
+      <div class="control">
+        <button class="btn-primary--round" [disabled]="item_form.invalid">
+          <fa-icon [icon]="plusIcon"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </form>
+  @if(items.length>0){
+  <div class="component">
+    <sale-form-items
+      [items]="items"
+      (onRemove)="remove($event)"
+    ></sale-form-items>
+  </div>
+  }
+  <div class="component flex flex-center">
+    <details>
+      <summary>apply discount</summary>
+      <input
+        type="number"
+        name=""
+        id=""
+        class="input-primary"
+        [formControl]="discount"
+      />
+    </details>
+  </div>
+  <div class="component flex flex-center">
+    <span class="important">{{
+      getSubtotal() - (discount.value ?? 0) | currency : "TZS"
+    }}</span>
+    <button
+      class="btn-primary"
+      [disabled]="items.length == 0"
+      (click)="submitSales()"
+    >
+      SUBMIT SALES
+    </button>
+  </div>
+
+  <div class="component sales-view">
+    <h2 class="text-center">sold items</h2>
+
+    <sales-info [items]="displayed_sales()"></sales-info>
+
+    <div class="flex">
+      <a
+        [routerLink]="[
+          '/shop',
+          storeConfig().store_name,
+          storeConfig().store_id,
+          'sales-info'
+        ]"
+        class="text-center more"
+        >MORE</a
+      >
+    </div>
+  </div>
+</div>

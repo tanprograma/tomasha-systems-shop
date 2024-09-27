@@ -1,0 +1,107 @@
+<div class="page">
+  <div class="component">
+    <h1 class="text-center">
+      {{ storeConfig().store_name | uppercase }}-ISSUE REQUESTS
+    </h1>
+  </div>
+  @if (view=='requests') {
+  <div class="component">
+    <request-filter (onFilter)="filterRequests($event)"></request-filter>
+  </div>
+  <ul class="component">
+    @for (request of displayed_requests(); track $index) {
+    <li
+      class="flex"
+      [class.unissued]="!request.completed"
+      [class.attention]="request.completed"
+    >
+      <div class="flex-5">
+        <prop-card [title]="'SN'" [content]="getSN($index + 1)"></prop-card>
+      </div>
+      <div class="flex-30">
+        <prop-card
+          [title]="'created'"
+          [content]="parseTime(request.createdAt)"
+        ></prop-card>
+      </div>
+      <div class="flex-20">
+        <prop-card
+          [title]="'source'"
+          [content]="getStoreFromID(request.store)"
+        ></prop-card>
+      </div>
+      <div class="flex-20">
+        <prop-card
+          [title]="'destination'"
+          [content]="getStoreFromID(request.destination)"
+        ></prop-card>
+      </div>
+      <div class="flex-20">
+        <button class="btn-neutral" (click)="onView(request)">view</button>
+      </div>
+    </li>
+    }
+  </ul>
+  }@else { @if (viewItem!=undefined) {
+  <div class="component flex">
+    <span class="important">
+      {{ viewItem.products.length }} items
+      {{ viewItem.completed ? "issued" : "pending" }}
+    </span>
+  </div>
+  <ul class="component">
+    @for (item of viewItem.products; track $index) {
+    <li class="flex">
+      <div class="flex-5">
+        <prop-card [title]="'SN'" [content]="getSN($index + 1)"></prop-card>
+      </div>
+      <div class="flex-20">
+        <prop-card
+          [title]="'created'"
+          [content]="parseProductName(item.product)"
+        ></prop-card>
+      </div>
+      <div class="flex-10">
+        <prop-card [title]="'unit'" [content]="item.unit"></prop-card>
+      </div>
+      <div class="flex-10">
+        <prop-card
+          [title]="'quantity'"
+          [content]="parseString(item.quantity)"
+        ></prop-card>
+      </div>
+      <div class="flex-10">
+        <label for="received">{{
+          viewItem.completed ? "issued" : "issue"
+        }}</label>
+        <input
+          class="input-primary"
+          type="number"
+          name="received"
+          id="received"
+          [disabled]="viewItem.completed"
+          [value]="item.received"
+          (keyup)="setReceived($event, item)"
+        />
+      </div>
+    </li>
+    }
+  </ul>
+  <div class="component flex flex-center">
+    <button class="btn-secondary" (click)="back()">BACK</button>
+    <button
+      class="btn-primary"
+      (click)="issue()"
+      [disabled]="viewItem.completed"
+    >
+      ISSUE
+    </button>
+  </div>
+  }}
+  <request-allert
+    [loading]="allert.loading"
+    [message]="allert.message"
+    [status]="allert.status"
+    (onSubmit)="handleAllert($event)"
+  ></request-allert>
+</div>

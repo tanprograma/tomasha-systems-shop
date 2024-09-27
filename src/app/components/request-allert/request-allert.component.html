@@ -1,0 +1,21 @@
+@if (loading) {
+<div class="status">
+  <div
+    class="filter"
+    [class.request-status--success]="status == true"
+    [class.request-status--failure]="status == false"
+  ></div>
+  <div class="status-content flex flex-center">
+    <div class="allert">
+      @if(status==undefined){
+      <allert-loading [message]="message"></allert-loading>
+      }@else {
+      <allert-status
+        [message]="message"
+        (onSubmit)="submit($event)"
+      ></allert-status>
+      }
+    </div>
+  </div>
+</div>
+}

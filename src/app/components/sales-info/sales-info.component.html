@@ -1,0 +1,36 @@
+<ul>
+  @for (item of items; track $index) {
+  <li class="flex">
+    <div class="flex-5">
+      <prop-card [title]="'SN'" [content]="parseString($index + 1)"></prop-card>
+    </div>
+    <div class="flex-20">
+      <prop-card [title]="'time'" [content]="parseTime(item.date)"></prop-card>
+    </div>
+    <div class="flex-20">
+      <prop-card [title]="'product'" [content]="productName(item)"></prop-card>
+    </div>
+    <div class="flex-20">
+      <prop-card [title]="'category'" [content]="category(item)"></prop-card>
+    </div>
+    <div class="flex-10">
+      <prop-card [title]="'unit'" [content]="item.unit"></prop-card>
+    </div>
+    <div class="flex-10">
+      <prop-card
+        [title]="'quantity'"
+        [content]="parseString(item.quantity)"
+      ></prop-card>
+    </div>
+    <div class="flex-10">
+      <prop-card
+        [money]="true"
+        [symbol]="'tzs'"
+        [title]="'amount'"
+        [content]="parseString(amount(item))"
+      ></prop-card>
+    </div>
+  </li>
+
+  }
+</ul>

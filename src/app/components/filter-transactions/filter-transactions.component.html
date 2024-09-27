@@ -1,0 +1,40 @@
+<form [formGroup]="filterForm" class="component flex" (ngSubmit)="filter()">
+  <input
+    class="input-primary"
+    type="text"
+    name="product"
+    id="product"
+    placeholder="e.g product name"
+    formControlName="product"
+    (keyup)="filter()"
+  />
+  <input
+    class="input-primary"
+    type="text"
+    name="category"
+    id="category"
+    placeholder="e.g category"
+    formControlName="category"
+    (keyup)="filter()"
+  />
+  <input
+    class="input-primary"
+    type="date"
+    id="date"
+    name="date"
+    formControlName="date"
+    (change)="filter()"
+  />
+
+  <button class="btn-primary--round" type="submit">
+    <fa-icon [icon]="filterIcon"></fa-icon>
+  </button>
+
+  <button
+    class="btn-secondary--round reset"
+    type="reset"
+    (click)="clearFilter()"
+  >
+    <fa-icon [icon]="resetIcon"></fa-icon>
+  </button>
+</form>

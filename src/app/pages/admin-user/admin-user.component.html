@@ -1,0 +1,70 @@
+<div class="page">
+  <div class="component">
+    <h1 class="text-center">create user</h1>
+  </div>
+  <div class="component flex flex-center">
+    <form
+      class="login-form component flex flex-center"
+      [formGroup]="userForm"
+      (ngSubmit)="createUser()"
+    >
+      <div class="form-container">
+        <div class="control">
+          <label for="firstname">firstname</label>
+          <input
+            class="input-primary"
+            type="text"
+            name="firstname"
+            id="firstname"
+            formControlName="firstname"
+          />
+        </div>
+        <div class="control">
+          <label for="lastname">lastname</label>
+          <input
+            class="input-primary"
+            type="text"
+            name="lastname"
+            id="lastname"
+            formControlName="lastname"
+          />
+        </div>
+        <div class="control">
+          <label for="email">email</label>
+          <input
+            class="input-primary"
+            type="text"
+            name="email"
+            id="email"
+            formControlName="email"
+          />
+        </div>
+
+        <div class="control">
+          <label for="role">role</label>
+          <select
+            class="input-primary"
+            name="role"
+            id="role"
+            formControlName="role"
+          >
+            <option value="" selected disabled>select role</option>
+            <option value="admin">admin</option>
+            <option value="other">other</option>
+          </select>
+        </div>
+
+        <div class="control">
+          <button class="btn-primary">ADD USER</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <request-allert
+    [message]="allert.message"
+    [loading]="allert.loading"
+    [status]="allert.status"
+    (onSubmit)="handleAllert($event)"
+  ></request-allert>
+</div>

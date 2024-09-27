@@ -1,0 +1,20 @@
+<div class="page">
+  <div class="menu container">
+    <div class="menu-container">
+      <dropdown-links
+        [title]="'shop-actions'"
+        [links]="shopLinks"
+        [open]="true"
+      />
+      <dropdown-links
+        [title]="'statistics'"
+        [links]="statisticsLinks"
+        [open]="true"
+      />
+      <dropdown-links title="app links" [links]="appLinks" />
+    </div>
+  </div>
+  <main class="container main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

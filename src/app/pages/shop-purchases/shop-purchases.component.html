@@ -1,0 +1,86 @@
+<div class="page">
+  <div class="component">
+    <h1 class="text-center">
+      {{ storeConfig().store_name | uppercase }} PURCHASES
+    </h1>
+  </div>
+  @if (view=='requests') {
+  <div class="component">
+    <purchase-filter (onFilter)="filterRequests($event)"></purchase-filter>
+  </div>
+  <ul class="component">
+    @for (request of displayed_requests(); track $index) {
+    <li
+      class="flex"
+      [class.unissued]="!request.completed"
+      [class.attention]="request.completed"
+    >
+      <div class="flex-5">
+        <prop-card [title]="'SN'" [content]="getSN($index + 1)"></prop-card>
+      </div>
+      <div class="flex-30">
+        <prop-card
+          [title]="'created'"
+          [content]="parseTime(request.createdAt)"
+        ></prop-card>
+      </div>
+      <div class="flex-20">
+        <prop-card
+          [title]="'source'"
+          [content]="parseStore(request.supplier)"
+        ></prop-card>
+      </div>
+      <div class="flex-20">
+        <prop-card
+          [title]="'destination'"
+          [content]="parseStore(request.destination)"
+        ></prop-card>
+      </div>
+      <div class="flex-20">
+        <button class="btn-neutral" (click)="onView(request)">view</button>
+      </div>
+    </li>
+    }
+  </ul>
+  }@else { @if (viewItem!=undefined) {
+  <div class="component flex">
+    <span class="important">
+      {{ viewItem.products.length }} items
+      {{ viewItem.completed ? "received" : "pending" }}
+    </span>
+  </div>
+  <ul class="component">
+    @for (item of viewItem.products; track $index) {
+    <li class="flex">
+      <div class="flex-5">
+        <prop-card [title]="'SN'" [content]="getSN($index + 1)"></prop-card>
+      </div>
+      <div class="flex-20">
+        <prop-card
+          [title]="'created'"
+          [content]="parseProductName(item.product)"
+        ></prop-card>
+      </div>
+      <div class="flex-10">
+        <prop-card [title]="'unit'" [content]="item.unit"></prop-card>
+      </div>
+      <div class="flex-10">
+        <prop-card
+          [title]="'quantity'"
+          [content]="parseString(item.quantity)"
+        ></prop-card>
+      </div>
+      <div class="flex-10">
+        <prop-card
+          [title]="'received'"
+          [content]="parseString(item.received)"
+        ></prop-card>
+      </div>
+    </li>
+    }
+  </ul>
+  <div class="component flex flex-center">
+    <button class="btn-secondary" (click)="back()">BACK</button>
+  </div>
+  }}
+</div>

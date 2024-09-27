@@ -1,0 +1,120 @@
+@if (inventory==undefined) {
+<div class="component">
+  <inventory-filter (onFilter)="filterInventories($event)"></inventory-filter>
+</div>
+<ul class="component">
+  @for (item of inventories(); track $index) {
+  <li class="flex">
+    <div class="flex-5">
+      <prop-card [title]="'SN'" [content]="$index + 1"></prop-card>
+    </div>
+    <div class="flex-20">
+      <prop-card
+        [title]="'product'"
+        [content]="renderProductName(item.product)"
+      ></prop-card>
+    </div>
+    <div class="flex-20">
+      <prop-card
+        [title]="'category'"
+        [content]="renderProductCategory(item.product)"
+      ></prop-card>
+    </div>
+    <div class="flex-5">
+      <prop-card
+        [title]="'unit'"
+        [content]="getLargestUnit(item.product).name"
+      ></prop-card>
+    </div>
+
+    <div class="flex-10">
+      <prop-card
+        [title]="'available'"
+        [content]="renderQuantity(item)"
+      ></prop-card>
+    </div>
+    <div class="flex-10">
+      <prop-card-action
+        [content]="'more'"
+        (onClick)="view(item)"
+      ></prop-card-action>
+    </div>
+  </li>
+  }
+</ul>
+}@else{
+<div class="component">
+  <div class="flex flex-center">
+    <div class="flex-20">
+      <prop-card
+        [title]="'product'"
+        [content]="renderProductName(inventory.product)"
+      ></prop-card>
+    </div>
+    <div class="flex-20">
+      <prop-card
+        [title]="'category'"
+        [content]="renderProductCategory(inventory.product)"
+      ></prop-card>
+    </div>
+    <div class="flex-5">
+      <prop-card
+        [title]="'unit'"
+        [content]="getLargestUnit(inventory.product).name"
+      ></prop-card>
+    </div>
+
+    <div class="flex-10">
+      <prop-card
+        [title]="'available'"
+        [content]="renderQuantity(inventory)"
+      ></prop-card>
+    </div>
+    <div class="flex-10">
+      <prop-card-action
+        [content]="'back'"
+        (onClick)="back()"
+      ></prop-card-action>
+    </div>
+  </div>
+  <div class="">
+    <h2 class="text-center">price information</h2>
+    <ul class="inventory-details">
+      @for (item of inventory.prices; track $index) {
+      <li class="flex flex-center">
+        <div class="flex-10">
+          <prop-card [title]="'unit'" [content]="item.unit"></prop-card>
+        </div>
+        <div class="flex-10">
+          <prop-card
+            [title]="'unit value'"
+            [content]="getUnitValue(item.unit, inventory.product)"
+          ></prop-card>
+        </div>
+        <div class="flex-10">
+          <prop-card [title]="'price'" [content]="item.value"></prop-card>
+        </div>
+      </li>
+      }
+    </ul>
+    <!-- <table>
+      <thead>
+        <tr>
+          <th>unit</th>
+          <th>unit_value</th>
+          <th>price</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of inventory.prices; track $index) {
+        <tr>
+          <td>{{ item.unit }}</td>
+          <td>{{ getUnitValue(item.unit, inventory.product) }}</td>
+          <td>{{ item.value }}</td>
+        </tr>
+        }
+      </tbody>
+    </table> -->
+  </div>
+</div>
+}

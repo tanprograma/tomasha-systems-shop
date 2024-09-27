@@ -1,0 +1,49 @@
+<div class="page">
+  <div class="component">
+    <h1 class="text-center">
+      {{ storeConfig().store_name | uppercase }} DISPENSED
+    </h1>
+  </div>
+
+  <div class="component">
+    <filter-transactions (onFilter)="filter($event)"></filter-transactions>
+  </div>
+  <div class="component">
+    <h1 class="text-center">dispensed summary</h1>
+    <div class="flex">
+      <div class="flex-20">
+        <prop-card
+          [title]="'sold items'"
+          [content]="displayed_sales().length"
+        ></prop-card>
+      </div>
+      <div class="flex-20">
+        <prop-card
+          [title]="'subtotal'"
+          [content]="amount()"
+          [money]="true"
+          [symbol]="'TZS'"
+        ></prop-card>
+      </div>
+      <div class="flex-20">
+        <prop-card
+          [title]="'discount'"
+          [content]="discount()"
+          [money]="true"
+          [symbol]="'TZS'"
+        ></prop-card>
+      </div>
+      <div class="flex-20">
+        <prop-card
+          [title]="'amount'"
+          [content]="amount() - discount()"
+          [money]="true"
+          [symbol]="'TZS'"
+        ></prop-card>
+      </div>
+    </div>
+  </div>
+  <div class="component">
+    <sales-info [items]="displayed_sales()"></sales-info>
+  </div>
+</div>

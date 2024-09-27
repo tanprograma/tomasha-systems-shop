@@ -1,0 +1,141 @@
+<div class="page">
+  <div class="component">
+    <h1 class="text-center">CREATE PRODUCTS</h1>
+  </div>
+  <form class="component flex flex-center" [formGroup]="product_form">
+    <div class="control">
+      <label for="category">category</label>
+      <select
+        class="input-primary"
+        name="category"
+        id="category"
+        formControlName="category"
+      >
+        <option value="" selected disabled>select category</option>
+        @for (item of categories; track $index) {
+        <option [value]="item.name">{{ item.name }}</option>
+        }
+      </select>
+    </div>
+    <div class="control">
+      <label for="product">product</label>
+      <input
+        class="input-primary"
+        type="text"
+        name="product"
+        id="product"
+        autocomplete="off"
+        formControlName="product"
+      />
+    </div>
+  </form>
+  <form
+    class="component flex flex-center"
+    [formGroup]="unit_form"
+    (ngSubmit)="addUnit()"
+  >
+    <div class="control">
+      <label for="product">unit</label>
+      <select
+        class="input-primary"
+        type="text"
+        name="unit"
+        id="unit"
+        autocomplete="off"
+        formControlName="unit"
+      >
+        <option value="" selected disabled>select unit</option>
+        @for (item of units; track $index) {
+        <option [value]="item.name">{{ item.name }}</option>
+        }
+      </select>
+    </div>
+    <div class="control">
+      <label for="product">unit value</label>
+      <input
+        class="input-primary"
+        type="number"
+        name="value"
+        id="value"
+        autocomplete="off"
+        formControlName="value"
+      />
+    </div>
+    <button
+      type="submit"
+      class="btn-primary--round"
+      [disabled]="product_form.invalid"
+    >
+      <fa-icon [icon]="plusIcon"></fa-icon>
+    </button>
+  </form>
+
+  <div class="component">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>product</td>
+          <td colspan="3" class="text-center">
+            {{ product_form.value.product ?? "" }}
+          </td>
+        </tr>
+        <tr>
+          <td>category</td>
+          <td colspan="3" class="text-center">
+            {{ product_form.value.category ?? "" }}
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" class="text-center">units</td>
+        </tr>
+        @for (item of createdUnits; track $index) {
+        <tr>
+          <td>{{ item.name }}</td>
+          <td>{{ item.value }}</td>
+          <td>
+            <button class="btn-danger--round">
+              <fa-icon [icon]="timesIcon"></fa-icon>
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <div class="component flex flex-center">
+    <button
+      class="btn-primary"
+      [disabled]="product_form.invalid"
+      (click)="createProduct()"
+    >
+      SUBMIT PRODUCT
+    </button>
+  </div>
+  <div class="component flex flex-center">
+    <table>
+      <thead>
+        <tr>
+          <th>sn</th>
+          <th>product</th>
+          <th>id</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of products; track $index) {
+        <tr>
+          <td>{{ $index + 1 }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item._id }}</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<div class="page">
+  <div class="component">
+    <h1 class="text-center">CREATE UNITS</h1>
+  </div>
+  <form
+    class="component flex flex-center"
+    [formGroup]="unit_form"
+    (ngSubmit)="createUnit()"
+  >
+    <div class="control">
+      <label for="unit">unit</label>
+      <input
+        class="input-primary"
+        type="text"
+        name="unit"
+        id="unit"
+        autocomplete="off"
+        formControlName="unit"
+      />
+    </div>
+    <button
+      type="submit"
+      class="btn-primary--round"
+      [disabled]="unit_form.invalid"
+    >
+      <fa-icon [icon]="plusIcon"></fa-icon>
+    </button>
+  </form>
+  <div class="component flex flex-center">
+    <table>
+      <thead>
+        <tr>
+          <th>sn</th>
+          <th>unit</th>
+          <th>id</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of units; track $index) {
+        <tr>
+          <td>{{ $index + 1 }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item._id }}</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
