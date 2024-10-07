@@ -33,6 +33,8 @@ import { InventoryFilter } from '../interfaces/inventory-filter';
 import { User } from '../interfaces/user';
 import { LoginService } from './login.service';
 import { Router } from '@angular/router';
+import { StatisticsSummary } from '../interfaces/statistics-summary';
+import { StatisticsService } from './statistics.service';
 
 @Injectable({
   providedIn: 'root',
@@ -49,6 +51,7 @@ export class ShopService {
   supplierService = inject(SupplierService);
   categoryService = inject(CategoryService);
   purchaseService = inject(PurchaseService);
+  statisticsService = inject(StatisticsService);
   http = inject(HttpService);
   document = inject(DOCUMENT);
   BASE_URL =
@@ -126,6 +129,68 @@ export class ShopService {
     return items.reduce((acc, curr) => {
       return acc + this.amount(curr);
     }, 0);
+  }
+  // statistics code
+  getStatistics() {
+    return forkJoin([
+      this.getInventories(),
+      this.getPurchases(),
+      this.getSales(),
+      this.getProducts(),
+    ]);
+  }
+  summarizeDispensed(sales: Sale[]) {
+    return this.statisticsService.getDispensedSummary(sales);
+  }
+  summarizePurchased(sales: Purchase[]) {
+    return this.statisticsService.getPurchaseSummary(sales);
+  }
+  summarizeInventory(sales: Inventory[]) {
+    return this.statisticsService.getInventorySummary(sales);
+  }
+  // summarizeStatistics(
+  //   products: Product[],
+  //   inventories: Inventory[],
+  //   purchases: Purchase[],
+  //   dispensed: Sale[]
+  // ): StatisticsSummary[] {
+  //   const sInventories = this.statisticsService.summarizeInventories(
+  //     inventories,
+  //     products
+  //   );
+  //   const sPurchases = this.statisticsService.summarizePurchased(
+  //     purchases,
+  //     products
+  //   );
+  //   const sDispensed = this.statisticsService.summarizeDispensed(
+  //     dispensed,
+  //     products
+  //   );
+  //   return products.map((item) => {
+  //     return {
+  //       product: item.name,
+  //       category: item.category,
+  //       quantity: this.statisticsService.findSummary(
+  //         sInventories,
+  //         item._id as string
+  //       ),
+  //       dispensed: this.statisticsService.findSummary(
+  //         sDispensed,
+  //         item._id as string
+  //       ),
+  //       purchased: this.statisticsService.findSummary(
+  //         sPurchases,
+  //         item._id as string
+  //       ),
+  //       unit: this.getLargeUnit(item).name,
+  //       unit_value: this.getLargeUnit(item).value,
+  //     };
+  //   });
+  // }
+  getLargeUnit(product: Product) {
+    return product.units.sort((a, b) => {
+      return this.descending(a.value, b.value);
+    })[0];
   }
   // user code{}
   login(data: User) {

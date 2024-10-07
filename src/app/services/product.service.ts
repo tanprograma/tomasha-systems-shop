@@ -19,7 +19,11 @@ export class ProductService {
   getProducts(api: string) {
     return this.http
       .get<Product[]>(api)
-      .pipe(catchError(this.http.handleError('could not get Products', [])));
+      .pipe(
+        catchError(
+          this.http.handleError<Product[]>('could not get Products', [])
+        )
+      );
   }
 
   postProduct(api: string, data: Product) {

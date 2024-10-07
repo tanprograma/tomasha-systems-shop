@@ -1,0 +1,40 @@
+<div class="page">
+  <div class="component">
+    <h1 class="text-center">INVENTORY</h1>
+  </div>
+  <div class="component">
+    <filter-statistics (onFilter)="filter($event)"></filter-statistics>
+  </div>
+  <div class="component">
+    <ul>
+      @for (item of displayed_data(); track $index) {
+      <li class="flex">
+        <div class="flex-5">
+          <prop-card [title]="'SN'" [content]="$index + 1"></prop-card>
+        </div>
+
+        <div class="flex-30">
+          <prop-card [title]="'product'" [content]="item.product"></prop-card>
+        </div>
+        <div class="flex-15">
+          <prop-card [title]="'category'" [content]="item.category"></prop-card>
+        </div>
+        <div class="flex-10">
+          <prop-card [title]="'unit'" [content]="item.unit"></prop-card>
+        </div>
+        <div class="flex-10">
+          <prop-card
+            [title]="'quantity'"
+            [content]="minimize(item.quantity / item.unit_value)"
+          ></prop-card>
+        </div>
+      </li>
+
+      }
+    </ul>
+  </div>
+  <initializing
+    [loading]="initializing.loading"
+    [message]="initializing.message"
+  ></initializing>
+</div>

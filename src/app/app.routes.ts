@@ -7,7 +7,12 @@ import { LoginComponent } from './pages/login/login.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
-  { path: 'home', component: HomeComponent },
+  {
+    path: 'home',
+    component: HomeComponent,
+    loadChildren: () =>
+      import('./routes/home.routes').then((mod) => mod.routes),
+  },
   { path: 'login', component: LoginComponent },
   {
     path: 'admin',

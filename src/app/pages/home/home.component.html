@@ -1,6 +1,12 @@
 <div class="page">
   <div class="container menu">
     <dropdown-links [title]="'stores'" [links]="storeLinks" [open]="true" />
+    <dropdown-links
+      [title]="'statistics'"
+      [links]="statisticsLinks"
+      [open]="true"
+    />
+
     @if (isAdmin()) {
     <dropdown-links
       [links]="[{ name: 'admin', url: '/admin' }]"
@@ -8,5 +14,7 @@
     ></dropdown-links>
     }
   </div>
-  <main class="container main-content">statistics coming</main>
+  <main class="container main-content">
+    <router-outlet></router-outlet>
+  </main>
 </div>

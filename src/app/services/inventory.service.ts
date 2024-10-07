@@ -16,7 +16,11 @@ export class InventoryService {
   getInventory(api: string) {
     return this.http
       .get<Inventory[]>(api)
-      .pipe(catchError(this.http.handleError('could not get inventories', [])));
+      .pipe(
+        catchError(
+          this.http.handleError<Inventory[]>('could not get inventories', [])
+        )
+      );
   }
 
   editPrice(api: string, data: { unit: string; value: number }[]) {

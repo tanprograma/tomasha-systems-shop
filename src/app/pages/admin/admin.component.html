@@ -1,10 +1,10 @@
 <div class="page">
   <div class="container menu">
-    <div class="menu-content">
-      <div class="component">
-        <!-- logs link -->
-        <a class="link-block" routerLink="logs">logs</a>
-      </div>
+    <div class="links">
+      <dropdown-links
+        [title]="'logs'"
+        [links]="[{ name: 'logs', url: '/admin/logs' }]"
+      ></dropdown-links>
       <dropdown-links
         [title]="'create'"
         [links]="createLinks"

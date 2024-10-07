@@ -15,7 +15,7 @@ export class DBUTILS {
           store: store._id,
           product: product._id,
           prices: product.units.map((p: any) => {
-            return { unit: p.name, price: 1 };
+            return { unit: p.name, value: 1 };
           }),
           quantity: 0,
         });
@@ -70,7 +70,7 @@ export class DBUTILS {
           store: store._id,
           product: product._id,
           prices: product.units.map((p: any) => {
-            return { unit: p.name, price: 1 };
+            return { unit: p.name, value: 1 };
           }),
           quantity: 0,
         });

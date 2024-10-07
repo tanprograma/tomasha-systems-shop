@@ -79,6 +79,9 @@ export class ShopSalesComponent implements OnInit {
         if (res.status) {
           this.items = [];
           this.discount.patchValue(0);
+          this.item_form.patchValue({
+            customer_id: '',
+          });
           const result = res.result as Sale;
           this.sales.update((v) => [result, ...v].slice(0, 5));
         }

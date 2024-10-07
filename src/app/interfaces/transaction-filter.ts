@@ -13,3 +13,9 @@ export interface PurchaseFilter {
   supplier: string;
   destination: string;
 }
+export interface StatisticsFilter {
+  start_date?: string;
+  end_date?: string;
+  product: string;
+  category: string;
+}

@@ -103,7 +103,7 @@ function run(): void {
         console.log(`database ${DATABASE_URL} connected successfully`);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.message);
       });
   });
 }

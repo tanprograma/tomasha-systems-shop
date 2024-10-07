@@ -1,0 +1,38 @@
+<ul>
+  @for (item of data; track $index) {
+  <li class="flex">
+    <div class="flex-5">
+      <prop-card [title]="'SN'" [content]="$index + 1"></prop-card>
+    </div>
+
+    <div class="flex-20">
+      <prop-card [title]="'product'" [content]="item.product"></prop-card>
+    </div>
+    <div class="flex-20">
+      <prop-card [title]="'category'" [content]="item.category"></prop-card>
+    </div>
+    <div class="flex-10">
+      <prop-card [title]="'unit'" [content]="item.unit"></prop-card>
+    </div>
+    <div class="flex-10">
+      <prop-card
+        [title]="'purchased'"
+        [content]="minimize(item.purchased / item.unit_value)"
+      ></prop-card>
+    </div>
+    <div class="flex-10">
+      <prop-card
+        [title]="'dispensed'"
+        [content]="maximize(item.dispensed / item.unit_value)"
+      ></prop-card>
+    </div>
+    <div class="flex-10">
+      <prop-card
+        [title]="'quantity'"
+        [content]="minimize(item.quantity / item.unit_value)"
+      ></prop-card>
+    </div>
+  </li>
+
+  }
+</ul>
