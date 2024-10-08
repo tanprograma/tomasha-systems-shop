@@ -1,7 +1,7 @@
 <div class="page">
   <div class="component">
     <h1 class="text-center">
-      {{ storeConfig().store_name | uppercase }} DISPENSED
+      {{ storeConfig().store_name | uppercase }} SALES
     </h1>
   </div>
 
@@ -9,7 +9,7 @@
     <filter-transactions (onFilter)="filter($event)"></filter-transactions>
   </div>
   <div class="component">
-    <h1 class="text-center">dispensed summary</h1>
+    <h1 class="text-center">sales summary</h1>
     <div class="flex">
       <div class="flex-20">
         <prop-card

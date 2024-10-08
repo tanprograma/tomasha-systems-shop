@@ -1,7 +1,7 @@
 <div class="page">
   <form [formGroup]="item_form" (ngSubmit)="addItem()">
     <div class="component">
-      <h2 class="text-center">dispense form</h2>
+      <h2 class="text-center">sale form</h2>
     </div>
     <div class="component flex flex-center">
       <div class="control">
@@ -91,12 +91,12 @@
       [disabled]="items.length == 0"
       (click)="submitSales()"
     >
-      DISPENSE
+      SELL
     </button>
   </div>
 
   <div class="component sales-view">
-    <h2 class="text-center">dispensed items</h2>
+    <h2 class="text-center">sold items</h2>
 
     <sales-info [items]="displayed_sales()"></sales-info>
 

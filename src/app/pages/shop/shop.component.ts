@@ -20,7 +20,7 @@ export class ShopComponent implements OnInit {
 
   shopLinks: { name: string; url: string }[] = [
     {
-      name: 'dispense',
+      name: 'sell',
       url: `sell`,
     },
 
@@ -54,7 +54,7 @@ export class ShopComponent implements OnInit {
     },
   ];
   statisticsLinks: { name: string; url: string }[] = [
-    { name: 'dispensed', url: '' },
+    { name: 'sales', url: '' },
     { name: 'purchases', url: 'purchases' },
     { name: 'requests', url: 'requests' },
     { name: 'inventories', url: 'inventories' },
