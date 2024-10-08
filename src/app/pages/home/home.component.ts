@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   storeLinks: { url: string; name: string }[] = [];
   statisticsLinks: { name: string; url: string }[] = [
     // { name: 'summary', url: '/home/summary-statistics' },
-    { name: 'dispensed-statistics', url: '/home/dispensed-statistics' },
+    { name: 'sales-statistics', url: '/home/dispensed-statistics' },
     { name: 'purchased-statistics', url: '/home/purchased-statistics' },
     { name: 'inventory-statistics', url: '/home/inventory-statistics' },
   ];
